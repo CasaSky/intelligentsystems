@@ -5,6 +5,7 @@ import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.variables.IntVar;
 
+//@See http://web.mit.edu/dxh/www/6034-constraint-practice.pdf
 public class ZooPlaningOriginal {
 
     public static void main(String[] args) {
@@ -62,6 +63,7 @@ public class ZooPlaningOriginal {
         Solver solver = model.getSolver();
         solver.showDecisions();
         solver.showStatistics();
+       // solver.plugMonitor(new GUI(solver));
         Solution solution = solver.findSolution();
         if (solution != null) {
             System.out.println(solution.toString());
