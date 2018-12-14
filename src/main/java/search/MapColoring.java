@@ -18,12 +18,12 @@ public class MapColoring {
         Model model = new Model("coloring maps");
         // VARIABLES
         // declare an array for creating variables and their domain
+        final IntVar V = model.intVar("V", 1, m);
         final IntVar WA = model.intVar("WA", 1, m);
         final IntVar NT = model.intVar("NT", 1, m);
-        final IntVar SA = model.intVar("SA", 1, m);
+        final IntVar SA = model.intVar("SA", 1, 2);
         final IntVar Q = model.intVar("Q", 1, m);
         final IntVar NSW = model.intVar("NSW", 1, m);
-        final IntVar V = model.intVar("V", 1, m);
         final IntVar T = model.intVar("T", 1, m);
 
        IntVar[] vars = {WA, NT, SA, Q, NSW, V, T};
@@ -41,6 +41,7 @@ public class MapColoring {
         final IntVar[] NSW_V = {NSW, V};
 
         model.post(
+                model.allDifferent(NSW_V),
                 model.allDifferent(WA_NT),
                 model.allDifferent(WA_SA),
                 model.allDifferent(NT_SA),
@@ -48,20 +49,20 @@ public class MapColoring {
                 model.allDifferent(SA_Q),
                 model.allDifferent(SA_NSW),
                 model.allDifferent(SA_V),
-                model.allDifferent(Q_NSW),
-                model.allDifferent(NSW_V)
+                model.allDifferent(Q_NSW)
         );
 
         // SOLUTION
         // now the problem (map coloring) has been described into a model using VARIABLES and CONSTRAINTS, its satisfaction can be evaluated, by trying to solve it.
         Solver solver = model.getSolver();
+        //solver.setSearch(Search.greedySearch(Search.inputOrderLBSearch(vars)));
+        solver.setSearch(Search.activityBasedSearch(vars));
         solver.showDecisions();
         solver.showStatistics();
         Solution solution = solver.findSolution();
         if (solution != null) {
             System.out.println(solution.toString());
         }
-        //solver.setSearch(Search.domOverWDegSearch(vars));
         /*List<Solution> solutions = solver.findAllSolutions(new SolutionCounter(model, 100));
         if(solutions != null && !solutions.isEmpty()){ // if the solution exists, it is printed on the console
             for (Solution solution : solutions) {
