@@ -1,19 +1,19 @@
 package learning;
 
-import com.sun.javafx.geom.Point2D;
-
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
 public class Dbscan {
 
-    private List<Point> dataSet = new ArrayList<>();
-    private Float eps;
-    private Integer mintPts;
+    private List<Point> dataSet;
+    private double eps;
+    private int mintPts;
     private List<List<Point>> clusterList = new ArrayList<>();
 
-    public Dbscan(List<Point> dataSet, Float eps, Integer mintPts) {
+    public Dbscan(List<Point> dataSet, double eps, int mintPts) {
         this.dataSet = dataSet;
         this.eps = eps;
         this.mintPts = mintPts;
@@ -38,7 +38,9 @@ public class Dbscan {
         List<Point> cluster = new ArrayList<>();
         point.setInAnyCluster(true);
         cluster.add(point);
-        for (Point neighbour : neighbours) {
+        Iterator<Point> iterator = neighbours.iterator();
+        while (!iterator.hasNext()) {
+            Point neighbour = iterator.next();
             if (!neighbour.isVisited()) {
                 neighbour.setVisited(true);
                 LinkedHashSet<Point> neigboursTemp =  regionQuery(neighbour);
@@ -53,16 +55,18 @@ public class Dbscan {
                 cluster.add(point);
             }
         }
+        for (Point neighbour : neighbours) {
+
+        }
         clusterList.add(cluster);
     }
     
     private LinkedHashSet<Point> regionQuery(Point point) {
         LinkedHashSet<Point> neighbours = new LinkedHashSet<>();
-        Float x = point.getX();
-        Float y = point.getY();
+
         for (Point pointTemp : dataSet) {
             if (point.getId() != pointTemp.getId()) {
-                float distance = Point2D.distance(x, y, pointTemp.getX(), pointTemp.getY());
+                double distance = point.getDistance(pointTemp.getX(), pointTemp.getY());
                 if (distance <= eps) {
                     neighbours.add(pointTemp);
                 }

@@ -1,16 +1,18 @@
 package learning;
 
-import com.sun.javafx.geom.Point2D;
+import java.awt.geom.Point2D;
 
 public class Point extends Point2D {
 
+    private double x;
+    private double y;
     private Long id;
     private boolean visited;
     private boolean noise;
     private boolean isInAnyCluster;
 
-    public Point(Long id, Float x, Float y) {
-        super(x, y);
+    public Point(Long id, double x, double y) {
+        setLocation(x, y);
         this.id = id;
     }
 
@@ -46,11 +48,32 @@ public class Point extends Point2D {
         this.id = id;
     }
 
-    public Float getX() {
-       return super.x;
+    @Override
+    public double getX() {
+        return x;
     }
 
-    public Float getY() {
-        return super.y;
+    @Override
+    public double getY() {
+        return y;
+    }
+
+    @Override
+    public void setLocation(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double getDistance(double nextX, double nextY) {
+        return Point2D.distance(x, y, nextX, nextY);
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "id=" + id +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
