@@ -1,10 +1,6 @@
 package learning;
 
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 
 public class Dbscan {
 
@@ -21,61 +17,71 @@ public class Dbscan {
 
     public List<List<Point>> getClusterList() {
 
-        for (Point point : dataSet) {
-            point.setVisited(true);
-            LinkedHashSet<Point> neighbours = regionQuery(point);
-            if (neighbours.size() < mintPts) {
-                point.setNoise(true);
-            } else {
-                expandCluster(point, neighbours);
+        int i = 0;
+        while (dataSet.size() > i) {
+            Point point = dataSet.get(i);
+            if (!point.isVisited()) {
+                point.setVisited(true);
+                //visitedPoints.add(point);
+                List<Point> neighbours = regionQuery(point);
+                if (neighbours.size() < mintPts) {
+                    point.setNoise(true);
+                } else {
+                    expandCluster(point, neighbours);
+                }
             }
+            i++;
         }
-
         return clusterList;
     }
     
-    private void expandCluster(Point point, LinkedHashSet<Point> neighbours) {
+    private void expandCluster(Point point, List<Point> neighbours) {
         List<Point> cluster = new ArrayList<>();
         point.setInAnyCluster(true);
         cluster.add(point);
-        Iterator<Point> iterator = neighbours.iterator();
-        while (!iterator.hasNext()) {
-            Point neighbour = iterator.next();
+        int i=0;
+        while (neighbours.size() > i) {
+            Point neighbour = neighbours.get(i); // visited
             if (!neighbour.isVisited()) {
                 neighbour.setVisited(true);
-                LinkedHashSet<Point> neigboursTemp =  regionQuery(neighbour);
+                List<Point> neigboursTemp = regionQuery(neighbour);
                 if (neigboursTemp.size() >= mintPts) {
-                    neighbours.addAll(neigboursTemp);
+                    join(neighbours, neigboursTemp);
+                }
+
+                //TODO Diskussionsfrage
+                if (!neighbour.isInAnyCluster()) {
+                    neighbour.setInAnyCluster(true);
+                    neighbour.setNoise(false);
+                    cluster.add(neighbour);
                 }
             }
-            //TODO Diskussionsfrage
-            if (!neighbour.isInAnyCluster()) {
-                point.setInAnyCluster(true);
-                point.setNoise(false);
-                cluster.add(point);
-            }
+            i++;
         }
-        for (Point neighbour : neighbours) {
-
-        }
-        clusterList.add(cluster);
+       clusterList.add(cluster);
     }
     
-    private LinkedHashSet<Point> regionQuery(Point point) {
-        LinkedHashSet<Point> neighbours = new LinkedHashSet<>();
+    private List<Point> regionQuery(Point point) {
+        List<Point> neighbours = new ArrayList<>();
 
         for (Point pointTemp : dataSet) {
-            if (point.getId() != pointTemp.getId()) {
-                double distance = point.getDistance(pointTemp.getX(), pointTemp.getY());
-                if (distance <= eps) {
-                    neighbours.add(pointTemp);
-                }
+            double distance = point.getDistance(pointTemp.getX(), pointTemp.getY());
+            if (distance <= eps) {
+                neighbours.add(pointTemp);
             }
         }
 
         return neighbours;
     }
 
+    private List<Point> join(List<Point> neighbours1, List<Point> neighbours2) {
+        for (Point point : neighbours2) {
+            if (!neighbours1.contains(neighbours2)) {
+                neighbours1.add(point);
+            }
+        }
+        return neighbours1;
+    }
 
 
 }

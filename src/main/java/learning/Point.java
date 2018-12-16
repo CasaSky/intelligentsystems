@@ -1,17 +1,19 @@
 package learning;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
+import java.util.Objects;
 
-public class Point extends Point2D {
+public class Point extends Point2D implements Comparable<Point>, Serializable {
 
     private double x;
     private double y;
-    private Long id;
+    private int id;
     private boolean visited;
     private boolean noise;
     private boolean isInAnyCluster;
 
-    public Point(Long id, double x, double y) {
+    public Point(int id, double x, double y) {
         setLocation(x, y);
         this.id = id;
     }
@@ -40,11 +42,11 @@ public class Point extends Point2D {
         isInAnyCluster = inAnyCluster;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -76,4 +78,19 @@ public class Point extends Point2D {
                 ", y=" + y +
                 '}';
     }
+
+    @Override
+    public int compareTo(Point o) {
+        return Integer.compare(id, o.id);
+        /*double distance = this.getDistance(o.x, o.y);
+        if (distance == 0) {
+            return 0;
+        } else if (distance > 0) {
+            return 1;
+        } else {
+            return -1;
+        }*/
+
+    }
+
 }

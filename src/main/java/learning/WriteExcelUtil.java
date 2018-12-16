@@ -1,7 +1,5 @@
 package learning;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -27,7 +25,7 @@ public class WriteExcelUtil {
         //This data needs to be written (Object[])
         Map<String, Object[]> data = new TreeMap<String, Object[]>();
         data.put("0", new Object[]{"ID", "AGE", "SALARY"});
-        for (int i=0; i<20; i++) {
+        for (int i=0; i<dataSet.size(); i++) {
             Point point = dataSet.get(i);
             data.put(i+1+"", new Object[]{i, point.getX()+"", point.getY()+""});
         }
