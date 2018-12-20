@@ -61,7 +61,7 @@ public class Dbscan {
        clusterList.add(cluster);
     }
     
-    private List<Point> regionQuery(Point point) {
+    public List<Point> regionQuery(Point point) {
         List<Point> neighbours = new ArrayList<>();
 
         for (Point pointTemp : dataSet) {
@@ -74,9 +74,10 @@ public class Dbscan {
         return neighbours;
     }
 
-    private List<Point> join(List<Point> neighbours1, List<Point> neighbours2) {
+    public List<Point> join(List<Point> neighbours1, List<Point> neighbours2) {
         for (Point point : neighbours2) {
-            if (!neighbours1.contains(neighbours2)) {
+//            if (!neighbours1.contains(neighbours2)) {
+            if (!neighbours1.contains(point)) {
                 neighbours1.add(point);
             }
         }
