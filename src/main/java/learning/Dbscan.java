@@ -43,12 +43,12 @@ public class Dbscan {
         cluster.add(point);
         int i=0;
         while (neighbours.size() > i) {
-            Point neighbour = neighbours.get(i); // visited
+            Point neighbour = neighbours.get(i);
             if (!neighbour.isVisited()) {
                 neighbour.setVisited(true);
-                List<Point> neigboursTemp = regionQuery(neighbour);
-                if (neigboursTemp.size() >= mintPts) {
-                    join(neighbours, neigboursTemp);
+                List<Point> neighboursTemp = regionQuery(neighbour);
+                if (neighboursTemp.size() >= mintPts) {
+                    join(neighbours, neighboursTemp);
                 }
 
                 //TODO Diskussionsfrage
