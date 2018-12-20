@@ -28,6 +28,8 @@ class DbscanTest {
 
     Dbscan dbscan1;
 
+
+
     @BeforeEach
     void setUp() {
         point11 = new Point(11, 1, 1);
@@ -109,6 +111,7 @@ class DbscanTest {
         neighboursJoined.add(point15);
 
         dbscan1 = new Dbscan(dataSet, 4.0, 5);
+
     }
 
     @AfterEach
@@ -117,7 +120,7 @@ class DbscanTest {
 
     @Test
     void getClusterList() {
-
+        assertEquals(clusterList, dbscan1.getClusterList());
     }
 
     @Test
@@ -154,12 +157,16 @@ class DbscanTest {
 
     @Test
     void expandCluster() {
-        List<Point> neighbours = new ArrayList<>();
-        neighbours.add(point11);
-        neighbours.add(point12);
+//        List<Point> neighbours = new ArrayList<>();
+//        neighbours.add(point11);
+//        neighbours.add(point12);
+//
+//        dbscan1.expandCluster(point11, cluster1);
+//        assertEquals(cluster1, clusterList.get(0));
 
-        dbscan1.expandCluster(point11, );
     }
+
+
 }
 
 
