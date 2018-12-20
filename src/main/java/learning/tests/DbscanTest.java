@@ -136,7 +136,30 @@ class DbscanTest {
 
     @Test
     void regionQuery() {
+        assertEquals(cluster1, dbscan1.regionQuery(point11));
+        assertEquals(cluster1, dbscan1.regionQuery(point12));
         assertEquals(cluster1, dbscan1.regionQuery(point13));
+        assertEquals(cluster1, dbscan1.regionQuery(point14));
+        assertEquals(cluster1, dbscan1.regionQuery(point15));
         assertEquals(cluster2, dbscan1.regionQuery(point21));
+        assertEquals(cluster3, dbscan1.regionQuery(point31));
+
+        assertNotEquals(cluster2, dbscan1.regionQuery(point11));
+        assertNotEquals(cluster3, dbscan1.regionQuery(point11));
+        assertNotEquals(cluster1, dbscan1.regionQuery(point21));
+        assertNotEquals(cluster3, dbscan1.regionQuery(point21));
+        assertNotEquals(cluster1, dbscan1.regionQuery(point31));
+        assertNotEquals(cluster2, dbscan1.regionQuery(point31));
+    }
+
+    @Test
+    void expandCluster() {
+        List<Point> neighbours = new ArrayList<>();
+        neighbours.add(point11);
+        neighbours.add(point12);
+
+        dbscan1.expandCluster(point11, );
     }
 }
+
+

@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Dbscan {
 
+    // Dichte Erreichbare Knoten?
+
     private List<Point> dataSet;
     private double eps;
     private int mintPts;
@@ -25,7 +27,7 @@ public class Dbscan {
                 //visitedPoints.add(point);
                 List<Point> neighbours = regionQuery(point);
                 if (neighbours.size() < mintPts) {
-                    point.setNoise(true);
+                    point.setNoise(true);           // Point könnte auch dicht erreichbar sein, oder?
                 } else {
                     expandCluster(point, neighbours);
                 }
@@ -35,7 +37,7 @@ public class Dbscan {
         return clusterList;
     }
     
-    private void expandCluster(Point point, List<Point> neighbours) {
+    public void expandCluster(Point point, List<Point> neighbours) {    // müsste eigentlich nur "neighbours" übergeben bekommen, weil point dort enthalten ist
         List<Point> cluster = new ArrayList<>();
         point.setInAnyCluster(true);
         cluster.add(point);
