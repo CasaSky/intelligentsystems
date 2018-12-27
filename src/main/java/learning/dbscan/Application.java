@@ -1,7 +1,8 @@
-package learning;
+package learning.dbscan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Application {
@@ -9,12 +10,24 @@ public class Application {
     public static void main(String[] args) {
 
 
-        List<Point> dataSet = generateRandomList(90);
+        int n = 5000;
+        List<Point> dataSet = generateRandomList(n);
         WriteExcelUtil.write(dataSet);
-        Dbscan dbscan = new Dbscan(dataSet, 5, 3);
-        List<List<Point>> clusterList = dbscan.getClusterList();
-        for (List<Point> cluster : clusterList) {
-            System.out.println(cluster.toString());
+        double eps = 2.5;
+        Dbscan dbscan = new Dbscan(dataSet, eps, 3);
+        Map<Integer, List<Point>> dataLabels = dbscan.findDataLabels();
+        int anzahlCluster = 0;
+        if (dataLabels.size() > 0) {
+            System.out.println("\n\nKategorisieren der Daten nach DBSCAN Algorithmus");
+            for (Map.Entry<Integer, List<Point>> cluster : dataLabels.entrySet()) {
+                anzahlCluster += cluster.getValue().size();
+                System.out.println(cluster.toString());
+            }
+            System.out.println("\n\nStatistics");
+            System.out.println(dataLabels.size() + " Cluster bei Radius von " + eps + " gefunden");
+            System.out.println(anzahlCluster + " von " + n + " Daten sind kategorisiert worden");
+        } else {
+            System.out.println("Es wurde kein Cluster gefunden.");
         }
     }
 
@@ -37,8 +50,8 @@ public class Application {
     }
 
     private static double getRandomSalary() {
-        int min = 40;
-        int max = 90;
+        int min = 40000;
+        int max = 90000;
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
         int result = ThreadLocalRandom.current().nextInt(min, max + 1);

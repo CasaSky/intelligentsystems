@@ -1,4 +1,4 @@
-package learning;
+package learning.dbscan;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;

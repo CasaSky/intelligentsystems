@@ -10,5 +10,8 @@
         <module name="intelligentsystems3" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="intelligentsystems" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

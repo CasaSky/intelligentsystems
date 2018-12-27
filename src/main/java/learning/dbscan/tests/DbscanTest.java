@@ -1,7 +1,7 @@
-package learning.tests;
+package learning.dbscan.tests;
 
-import learning.Dbscan;
-import learning.Point;
+import learning.dbscan.Dbscan;
+import learning.dbscan.Point;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

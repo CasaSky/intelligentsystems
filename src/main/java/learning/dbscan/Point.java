@@ -1,45 +1,36 @@
-package learning;
+package learning.dbscan;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Point extends Point2D implements Comparable<Point>, Serializable {
 
     private double x;
     private double y;
     private int id;
-    private boolean visited;
-    private boolean noise;
-    private boolean isInAnyCluster;
+    private Integer clusterNumber = 0;
+    private PointType pointType = PointType.UNDEFINED;
 
     public Point(int id, double x, double y) {
         setLocation(x, y);
         this.id = id;
     }
 
-    public boolean isVisited() {
-        return visited;
+    public PointType getLabel() {
+        return pointType;
     }
 
-    public void setVisited(boolean visited) {
-        this.visited = visited;
+    public void setLabel(PointType pointType, Integer clusterNumber) {
+        this.pointType = pointType;
+        this.clusterNumber = clusterNumber;
     }
 
-    public boolean isNoise() {
-        return noise;
+    public void makeItNoise() {
+        this.pointType = PointType.NOISE;
     }
 
-    public void setNoise(boolean noise) {
-        this.noise = noise;
-    }
-
-    public boolean isInAnyCluster() {
-        return isInAnyCluster;
-    }
-
-    public void setInAnyCluster(boolean inAnyCluster) {
-        isInAnyCluster = inAnyCluster;
+    public Integer getClusterNumber() {
+        return clusterNumber;
     }
 
     public int getId() {
