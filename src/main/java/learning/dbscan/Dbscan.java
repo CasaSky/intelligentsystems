@@ -52,7 +52,7 @@ public class Dbscan {
         }
         // Preparing the output, output contains only the input that is been clustered
         List<Point> clusteredPoints = dataSet.stream().filter(d -> d.getClusterNumber() > 0).collect(Collectors.toList());
-        // Grouping the output in order to group similar points together
+        // Grouping the output in order to group points together
         Map<Integer, List<Point>> result = clusteredPoints.stream().collect(groupingBy(d -> d.getClusterNumber()));
         return result;
     }
