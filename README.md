@@ -32,3 +32,13 @@ An autoencoder has two parts:
 - Encoding the input data for data reduction. The code describes the important features of the input data.
 - Decryption of the generated code in the encoding part in order to produce the reconstruction of the data.
 The main work of autoencoders is to learn how to generate from compressed data an output that closely match to the original input.
+
+
+Backpropagation algorithm is the fastest way to update weights in the ANNs
+It uses partial derivates of the cost function for each weight - ∂C/∂w. Where C is the cost function (to calculate the error)
+For example quadratic cost function, or mean squared error function
+c(w,b) = (1 / 2n) * Sigmax||y(x) - a||²
+Where n is the total number of inputs, x individual input, y(x) is the disered output,
+a is the vector of actual outputs from the network when x is input
+After application of backpropagation
+C = (1 / n) * Sigmax Cx
