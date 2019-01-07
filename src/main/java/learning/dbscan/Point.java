@@ -1,18 +1,17 @@
 package learning.dbscan;
 
-import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.List;
 
-public class Point extends Point2D implements Comparable<Point>, Serializable {
+public class Point implements Comparable<Point>, Serializable {
 
-    private double x;
-    private double y;
+    private List<java.lang.Double> coordinates;
     private int id;
     private Integer clusterNumber = 0;
     private PointType pointType = PointType.UNDEFINED;
 
-    public Point(int id, double x, double y) {
-        setLocation(x, y);
+    public Point(int id, List<java.lang.Double> coordinates) {
+        this.coordinates = coordinates;
         this.id = id;
     }
 
@@ -41,34 +40,40 @@ public class Point extends Point2D implements Comparable<Point>, Serializable {
         this.id = id;
     }
 
-    @Override
-    public double getX() {
-        return x;
+    public List<Double> getCoordinates() {
+        return coordinates;
     }
 
-    @Override
-    public double getY() {
-        return y;
+    public void setCoordinates(List<Double> coordinates) {
+        this.coordinates = coordinates;
     }
 
-    @Override
-    public void setLocation(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
+    public double getDistance(List<Double> anotherPointCoordinates) throws Exception {
 
-    public double getDistance(double nextX, double nextY) {
-        return Point2D.distance(x, y, nextX, nextY);
+        if (coordinates.size() != anotherPointCoordinates.size()) {
+            throw new Exception("The dimension of two point must be the same");
+        }
+
+        double sum = 0;
+        for (int i=0; i<coordinates.size(); i++) {
+            Double coordinate = coordinates.get(i);
+            Double anotherPointCoordinate = anotherPointCoordinates.get(i);
+            sum += Math.pow((coordinate - anotherPointCoordinate), 2);
+        }
+
+        return Math.sqrt(sum);
+        //Point2D.distance(x, y, nextX, nextY);
+
     }
 
     @Override
     public String toString() {
         return "Point{" +
                 "id=" + id +
-                ", x=" + x +
-                ", y=" + y +
+               coordinates +
                 '}';
     }
+
 
     @Override
     public int compareTo(Point o) {

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,12 +18,12 @@ public class Application {
         readIrisDataset();
 
 
-        int n = 5000;
         //List<Point> dataSet = generateRandomData(n);
         List<Point> dataSet = readIrisDataset();
+        int n = dataSet.size();
         WriteExcelUtil.write(dataSet);
-        double eps = 1.5;
-        Dbscan dbscan = new Dbscan(dataSet, eps, 10);
+        double eps = 1.64;
+        Dbscan dbscan = new Dbscan(dataSet, eps, 20);
         Map<Integer, List<Point>> dataLabels = dbscan.findDataLabels();
         int anzahlCluster = 0;
         if (dataLabels.size() > 0) {
@@ -46,12 +47,12 @@ public class Application {
         int maxY = 90000;
         List<Point> dataSet = new ArrayList<>();
         for (int i=0; i<n/2; i++) {
-            Point point = new Point(i, getRandomAge(minX, maxX/2), getRandomSalary(minY+20000, maxY-1000));
+            Point point = new Point(i, Arrays.asList(getRandomAge(minX, maxX/2), getRandomSalary(minY+20000, maxY-1000)));
             dataSet.add(point);
         }
 
         for (int i=n/2; i<n; i++) {
-            Point point = new Point(i, getRandomAge(maxX/2, maxX), getRandomSalary(minY, maxY));
+            Point point = new Point(i, Arrays.asList(getRandomAge(maxX/2, maxX), getRandomSalary(minY, maxY)));
             dataSet.add(point);
         }
 
@@ -82,11 +83,15 @@ public class Application {
             int i=0;
             for (String line : Files.readAllLines(Paths.get(fileName))) {
                 String[] lineData = line.split(",");
-                if (lineData != null && lineData.length >= 2) {
-                    String x = lineData[0];
-                    String y = lineData[1];
-                    if (StringUtils.isNotBlank(x) && StringUtils.isNotBlank(y)) {
-                        data.add(new Point(i, Double.parseDouble(x), Double.parseDouble(y)));
+                if (lineData != null && lineData.length >=4) {
+                    String x1 = lineData[0];
+                    String x2 = lineData[1];
+                    String x3 = lineData[2];
+                    String x4 = lineData[3];
+
+                    if (StringUtils.isNotBlank(x1) && StringUtils.isNotBlank(x2) && StringUtils.isNotBlank(x3)
+                            && StringUtils.isNotBlank(x4)) {
+                        data.add(new Point(i, Arrays.asList(Double.parseDouble(x1), Double.parseDouble(x2), Double.parseDouble(x3), Double.parseDouble(x4))));
                     }
                 }
                 i++;

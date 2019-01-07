@@ -61,7 +61,12 @@ public class Dbscan {
         List<Point> neighbours = new ArrayList<>();
 
         for (Point pointTemp : dataSet) {
-            double distance = point.getDistance(pointTemp.getX(), pointTemp.getY());
+            List<Double> coordinates = pointTemp.getCoordinates();
+            double distance = 0;
+            try {
+                distance = point.getDistance(coordinates);
+            } catch (Exception e) {
+            }
             if (distance <= eps) {
                 neighbours.add(pointTemp);
             }

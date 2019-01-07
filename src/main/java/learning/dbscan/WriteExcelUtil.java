@@ -27,7 +27,15 @@ public class WriteExcelUtil {
         data.put("0", new Object[]{"ID", "AGE", "SALARY"});
         for (int i=0; i<dataSet.size(); i++) {
             Point point = dataSet.get(i);
-            data.put(i+1+"", new Object[]{i, point.getX()+"", point.getY()+""});
+            List<Double> coordinates = point.getCoordinates();
+            Object[] values = new Object[5];
+            values[0] = i;
+            int x = 1;
+            for (Double coordinate : coordinates) {
+                values[x] = coordinate+"";
+                x++;
+            }
+            data.put(i+1+"", values);
         }
 
         //Iterate over data and write to sheet
