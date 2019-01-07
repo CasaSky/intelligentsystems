@@ -21,7 +21,7 @@ public class Dbscan {
 
         int clusterNumber = 0;
         int i = 0;
-        while (dataSet.size() > i) {
+        while (i < dataSet.size()) {
             Point point = dataSet.get(i);
             if (point.getLabel() == PointType.UNDEFINED) {
                 List<Point> neighbours = regionQuery(point);
@@ -32,7 +32,7 @@ public class Dbscan {
                     point.setLabel(PointType.CORE, clusterNumber); // label point
                     neighbours.remove(point);
                     int j = 0;
-                    while (neighbours.size() > j) {
+                    while (j < neighbours.size()) {
                         Point neighbour = neighbours.get(j);
                         if (neighbour.getLabel() == PointType.NOISE) {
                                 neighbour.setLabel(PointType.BORDER, clusterNumber);// change it to border point and give it a label
