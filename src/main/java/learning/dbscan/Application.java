@@ -1,7 +1,5 @@
 package learning.dbscan;
 
-import org.junit.platform.commons.util.StringUtils;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -89,10 +87,7 @@ public class Application {
                     String x3 = lineData[2];
                     String x4 = lineData[3];
 
-                    if (StringUtils.isNotBlank(x1) && StringUtils.isNotBlank(x2) && StringUtils.isNotBlank(x3)
-                            && StringUtils.isNotBlank(x4)) {
-                        data.add(new Point(i, Arrays.asList(Double.parseDouble(x1), Double.parseDouble(x2), Double.parseDouble(x3), Double.parseDouble(x4))));
-                    }
+                    data.add(new Point(i, Arrays.asList(Double.parseDouble(x1), Double.parseDouble(x2), Double.parseDouble(x3), Double.parseDouble(x4))));
                 }
                 i++;
             }
