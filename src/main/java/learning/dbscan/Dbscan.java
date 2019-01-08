@@ -35,13 +35,13 @@ public class Dbscan {
                     while (j < neighbours.size()) {
                         Point neighbour = neighbours.get(j);
                         if (neighbour.getLabel() == PointType.NOISE) {
-                                neighbour.setLabel(PointType.BORDER, clusterNumber);// change it to border point and give it a label
+                                neighbour.setLabel(PointType.BORDER, clusterNumber);// label point
                         } else if (neighbour.getLabel() == PointType.UNDEFINED) {
                             neighbour.setLabel(PointType.CORE, clusterNumber); // label neighbor
 
-                            List<Point> neigboursTemp = regionQuery(neighbour); // find neighbors
-                            if (neigboursTemp.size() >= mintPts) { // density check
-                                join(neighbours, neigboursTemp); // add neighbors to seed set
+                            List<Point> neighboursTemp = regionQuery(neighbour); // find neighbors
+                            if (neighboursTemp.size() >= mintPts) { // density check
+                                join(neighbours, neighboursTemp); // add neighbors to seed set
                             }
                         }
                         j++;
