@@ -34,16 +34,12 @@ public class Dbscan {
                     int j = 0;
                     while (j < neighbours.size()) {
                         Point neighbour = neighbours.get(j);
-                        if (neighbour.getLabel() == PointType.NOISE) {
-                                neighbour.setLabel(PointType.BORDER, clusterNumber);// label point
-                        } else if (neighbour.getLabel() == PointType.UNDEFINED) {
-                            neighbour.setLabel(PointType.CORE, clusterNumber); // label neighbor
-
-                            List<Point> neighboursTemp = regionQuery(neighbour); // find neighbors
+                        List<Point> neighboursTemp = regionQuery(neighbour); // find neighbors
                             if (neighboursTemp.size() >= mintPts) { // density check
+                                neighbour.setLabel(PointType.CORE, clusterNumber);
                                 join(neighbours, neighboursTemp); // add neighbors to seed set
                             }
-                        }
+                            neighbour.setLabel(PointType.BORDER, clusterNumber);
                         j++;
                     }
                 }

@@ -32,7 +32,11 @@ public class WriteExcelUtil {
             values[0] = i;
             int x = 1;
             for (Double coordinate : coordinates) {
-                values[x] = coordinate.toString().replace(".", ",")+"";
+                String tempValue = String.valueOf(coordinate).replace(".", ",");
+                if (x!=coordinates.size()-1) {
+                    tempValue+="";
+                }
+                values[x] = tempValue;
                 x++;
             }
             data.put(i+1+"", values);
