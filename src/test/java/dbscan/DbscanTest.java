@@ -1,10 +1,10 @@
-package learning.tests;
+package learning.dbscan.tests;
 
-import learning.Dbscan;
-import learning.Point;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import learning.dbscan.Dbscan;
+import learning.dbscan.Point;
+//import org.junit.jupiter.api.AfterEach;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

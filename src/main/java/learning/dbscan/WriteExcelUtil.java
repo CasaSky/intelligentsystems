@@ -1,4 +1,4 @@
-package learning;
+package learning.dbscan;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -27,7 +27,15 @@ public class WriteExcelUtil {
         data.put("0", new Object[]{"ID", "AGE", "SALARY"});
         for (int i=0; i<dataSet.size(); i++) {
             Point point = dataSet.get(i);
-            data.put(i+1+"", new Object[]{i, point.getX()+"", point.getY()+""});
+            List<Double> coordinates = point.getCoordinates();
+            Object[] values = new Object[5];
+            values[0] = i;
+            int x = 1;
+            for (Double coordinate : coordinates) {
+                values[x] = coordinate.toString().replace(".", ",")+"";
+                x++;
+            }
+            data.put(i+1+"", values);
         }
 
         //Iterate over data and write to sheet
@@ -50,10 +58,10 @@ public class WriteExcelUtil {
         try
         {
             //Write the workbook in file system
-            FileOutputStream out = new FileOutputStream(new File("personData.xlsx"));
+            FileOutputStream out = new FileOutputStream(new File("dataset.xlsx"));
             workbook.write(out);
             out.close();
-            System.out.println("personData.xlsx written successfully on disk.");
+            System.out.println("dataset.xlsx written successfully on disk.");
         }
         catch (Exception e)
         {
