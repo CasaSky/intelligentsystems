@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PatterngeneratorTest {
-    Patterngenerator patterngenerator;
+    /*Patterngenerator patterngenerator;
 
     List<Integer> eckpunkte11;
     List<Integer> eckpunkte12;
@@ -215,5 +215,5 @@ class PatterngeneratorTest {
             assertFalse(i<1 || i>3);
         }
 
-    }
+    }*/
 }

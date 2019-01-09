@@ -1,12 +1,15 @@
 package learning.dbscan;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Patterns {
     Patterngenerator patterngenerator = new Patterngenerator();
-//    private List<List<Integer>> pattern1Coordinates = new ArrayList<>();
-//    private List<List<Integer>> pattern2Coordinates = new ArrayList<>();
+    private List<List<Integer>> pattern1Coordinates = new ArrayList<>();
+    private List<List<Integer>> pattern2Coordinates = new ArrayList<>();
 
 
     public Patterns() {
@@ -55,7 +58,7 @@ public class Patterns {
         rauschpunkte1.add(0);
         rauschpunkte1.add(70);
 
-        List<List<Integer>> pattern1Coordinates = new ArrayList<>();
+//        List<List<Integer>> pattern1Coordinates = new ArrayList<>();
         pattern1Coordinates.add(eckpunkte11);
         pattern1Coordinates.add(eckpunkte11);
         pattern1Coordinates.add(eckpunkte12);
@@ -105,7 +108,7 @@ public class Patterns {
         rauschpunkte2.add(70);
 
 
-        List<List<Integer>> pattern2Coordinates = new ArrayList<>();
+//        List<List<Integer>> pattern2Coordinates = new ArrayList<>();
         pattern2Coordinates.add(eckpunkte21);
         pattern2Coordinates.add(eckpunkte22);
         pattern2Coordinates.add(eckpunkte23);
@@ -115,8 +118,21 @@ public class Patterns {
         return pattern2Coordinates;
     }
 
+    public void writeFile(List<Point> dataSet, String filename) throws IOException {
+        FileWriter fw = new FileWriter(""+filename+".data");  //.txt?
+        BufferedWriter bw = new BufferedWriter(fw);
 
+//        Patterngenerator patterngenerator = new Patterngenerator();
+//        Patterns patterns = new Patterns();
 
+//        List<Point> pattern1Dataset = patterngenerator.generatePattern(patterns.createPattern1(), 1.0);
+        for(Point point : dataSet){
+            bw.write("" + point.getCoordinates().get(0) + "," + point.getCoordinates().get(1));
+            bw.newLine();
+        }
 
+        bw.close();
+    }
 
 }
+
