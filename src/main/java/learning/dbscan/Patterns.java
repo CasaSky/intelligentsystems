@@ -136,10 +136,3 @@ public class Patterns {
 
 }
 
-
-
-
-
-
-
-}
