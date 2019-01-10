@@ -68,8 +68,7 @@ public class Point implements Comparable<Point>, Serializable {
 
     @Override
     public String toString() {
-        return "Point{" +
-                "id=" + id +
+        return "{" +
                coordinates +
                 '}';
     }

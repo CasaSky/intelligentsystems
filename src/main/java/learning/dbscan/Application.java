@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 
 public class Application {
@@ -24,7 +25,8 @@ public class Application {
         List<Point> dataSetPattern2 = patterngenerator.generatePattern(patterns.createPattern2(), 1.0);
         List<Point> dataSet = dataSetPattern1;                  // hier zwischen datasets wechseln
         int n = dataSet.size();
-        WriteExcelUtil.write(dataSet);
+        WriteExcelUtil.write(dataSet, "dataset.xlsx");
+
         double eps = 1.64;                                      // hier radius einstellen
         Dbscan dbscan = new Dbscan(dataSet, eps, 5);   // hier minimum Points einstellen
         Map<Integer, List<Point>> dataLabels = dbscan.findDataLabels();
@@ -41,6 +43,12 @@ public class Application {
         } else {
             System.out.println("Es wurde kein Cluster gefunden.");
         }
+
+        //dataLabels.values().stream().flatMap(List::stream).collect(Collectors.toList());
+        for (int i=0; i<dataLabels.size(); i++) {
+            WriteExcelUtil.write(dataLabels.get(i+1), "cluster"+i+".xlsx");
+        }
+
     }
 
     private static List<Point> generateRandomData(int n) {

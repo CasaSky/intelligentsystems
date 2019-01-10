@@ -15,16 +15,16 @@ import java.util.TreeMap;
 
 public class WriteExcelUtil {
 
-    public static void write(List<Point> dataSet) {
+    public static void write(List<Point> dataSet, String filename) {
         //Blank workbook
         Workbook workbook = new XSSFWorkbook();
 
         //Create a blank sheet
-        Sheet sheet = workbook.createSheet("Person Data");
+        Sheet sheet = workbook.createSheet("Features");
 
         //This data needs to be written (Object[])
         Map<String, Object[]> data = new TreeMap<String, Object[]>();
-        data.put("0", new Object[]{"ID", "AGE", "SALARY"});
+        data.put("0", new Object[]{"ID", "X", "Y"});
         for (int i=0; i<dataSet.size(); i++) {
             Point point = dataSet.get(i);
             List<Double> coordinates = point.getCoordinates();
@@ -33,9 +33,6 @@ public class WriteExcelUtil {
             int x = 1;
             for (Double coordinate : coordinates) {
                 String tempValue = String.valueOf(coordinate).replace(".", ",");
-                if (x!=coordinates.size()-1) {
-                    tempValue+="";
-                }
                 values[x] = tempValue;
                 x++;
             }
@@ -62,10 +59,10 @@ public class WriteExcelUtil {
         try
         {
             //Write the workbook in file system
-            FileOutputStream out = new FileOutputStream(new File("dataset.xlsx"));
+            FileOutputStream out = new FileOutputStream(new File(filename));
             workbook.write(out);
             out.close();
-            System.out.println("dataset.xlsx written successfully on disk.");
+            System.out.println(filename + " written successfully on disk.");
         }
         catch (Exception e)
         {
