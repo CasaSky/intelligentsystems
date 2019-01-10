@@ -50,6 +50,8 @@ public class Dbscan {
         List<Point> clusteredPoints = dataSet.stream().filter(d -> d.getClusterNumber() > 0).collect(Collectors.toList());
         // Grouping the output in order to group points together
         Map<Integer, List<Point>> result = clusteredPoints.stream().collect(groupingBy(d -> d.getClusterNumber()));
+        List<Point> noise = dataSet.stream().filter(d -> !clusteredPoints.contains(d)).collect(Collectors.toList());
+        result.put(-1, noise);
         return result;
     }
     
