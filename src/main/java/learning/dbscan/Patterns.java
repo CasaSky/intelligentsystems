@@ -17,35 +17,35 @@ public class Patterns {
 
     public List<List<Integer>> createPattern1(){
         List<Integer> eckpunkte11 = new ArrayList<>();
-        eckpunkte11.add(1000);
+        eckpunkte11.add(10);
         eckpunkte11.add(10);
         eckpunkte11.add(40);
         eckpunkte11.add(10);
         eckpunkte11.add(20);
 
         List<Integer> eckpunkte12 = new ArrayList<>();
-        eckpunkte12.add(1000);
+        eckpunkte12.add(10);
         eckpunkte12.add(10);
         eckpunkte12.add(20);
         eckpunkte12.add(20);
         eckpunkte12.add(50);
 
         List<Integer> eckpunkte13 = new ArrayList<>();
-        eckpunkte13.add(1000);
+        eckpunkte13.add(10);
         eckpunkte13.add(20);
         eckpunkte13.add(50);
         eckpunkte13.add(40);
         eckpunkte13.add(50);
 
         List<Integer> eckpunkte14 = new ArrayList<>();
-        eckpunkte14.add(1000);
+        eckpunkte14.add(10);
         eckpunkte14.add(40);
         eckpunkte14.add(50);
         eckpunkte14.add(10);
         eckpunkte14.add(40);
 
         List<Integer> eckpunkte15 = new ArrayList<>();
-        eckpunkte15.add(1000);
+        eckpunkte15.add(10);
         eckpunkte15.add(25);
         eckpunkte15.add(35);
         eckpunkte15.add(25);
@@ -59,7 +59,6 @@ public class Patterns {
         rauschpunkte1.add(70);
 
 //        List<List<Integer>> pattern1Coordinates = new ArrayList<>();
-        pattern1Coordinates.add(eckpunkte11);
         pattern1Coordinates.add(eckpunkte11);
         pattern1Coordinates.add(eckpunkte12);
         pattern1Coordinates.add(eckpunkte13);
