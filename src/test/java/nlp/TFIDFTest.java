@@ -1,5 +1,7 @@
 package nlp;
 
+import learning.dbscan.Dbscan;
+import learning.dbscan.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,9 +15,9 @@ import java.util.Map;
 
 public class TFIDFTest {
 
-    @DisplayName("TF-IDF and WordTokenizer computed successfully")
+    @DisplayName("TF-IDF computed successfully")
     @Test
-    void computeTFIDFAndTokenizeSuccesfully() {
+    void computeTFIDFSuccesfully() {
         List<String> documents = readDocuments();
         Assertions.assertFalse(documents == null);
         Assertions.assertTrue(documents.size() == 2);
@@ -29,6 +31,16 @@ public class TFIDFTest {
         Map<Integer, List<Double>> vectorOfWeights = tfidf.compute(corpus);
         Assertions.assertFalse(vectorOfWeights == null);
         Assertions.assertTrue(vectorOfWeights.size() == 2);
+
+        List<Point> dataSet = new ArrayList<>();
+        for (Map.Entry<Integer, List<Double>> document : vectorOfWeights.entrySet()) {
+            dataSet.add(new Point(document.getKey(), document.getValue()));
+        }
+        Dbscan dbscan = new Dbscan(dataSet, 0, 1);
+        Map<Integer, List<Point>> dataLabels = dbscan.findDataLabels();
+        Assertions.assertFalse(dataLabels == null);
+        System.out.println(dataLabels);
+        System.out.println("Anzahl Cluster: " + (dataLabels.size() - 1));
     }
 
 
