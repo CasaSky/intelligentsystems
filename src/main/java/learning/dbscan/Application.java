@@ -21,13 +21,13 @@ public class Application {
 
         //List<Point> dataSet = generateRandomData(n);
         List<Point> dataSetIris = readIrisDataset();
-        List<Point> dataSetPattern1 = patterngenerator.generatePattern(patterns.createPattern1(), 1.0);
-        List<Point> dataSetPattern2 = patterngenerator.generatePattern(patterns.createPattern2(), 1.0);
-        List<Point> dataSet = dataSetPattern1;                  // hier zwischen datasets wechseln
+        List<Point> dataSetPattern1 = patterngenerator.generatePattern(patterns.createPattern1(), 10.0);
+        List<Point> dataSetPattern2 = patterngenerator.generatePattern(patterns.createPattern2(), 10.0);
+        List<Point> dataSet = dataSetPattern2;                  // hier zwischen datasets wechseln
         int n = dataSet.size();
         WriteExcelUtil.write(dataSet, "dataset.xlsx");
 
-        double eps = 1.64;                                      // hier radius einstellen
+        double eps = 5.0;                                      // hier radius einstellen
         Dbscan dbscan = new Dbscan(dataSet, eps, 5);   // hier minimum Points einstellen
         Map<Integer, List<Point>> dataLabels = dbscan.findDataLabels();
         int anzahlCluster = 0;
@@ -45,8 +45,8 @@ public class Application {
         }
 
         //dataLabels.values().stream().flatMap(List::stream).collect(Collectors.toList());
-        for (int i=0; i<dataLabels.size(); i++) {
-            WriteExcelUtil.write(dataLabels.get(i+1), "cluster"+i+".xlsx");
+        for (int i=1; i<dataLabels.size(); i++) {
+            WriteExcelUtil.write(dataLabels.get(i), "cluster"+i+".xlsx");
         }
 
     }

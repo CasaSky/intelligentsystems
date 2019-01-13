@@ -1,0 +1,3 @@
+Dies ist Text zwei über ein Moped.
+Ein Moped hat einen Motor.
+Ein Moped ist schneller als ein Fahrrad.

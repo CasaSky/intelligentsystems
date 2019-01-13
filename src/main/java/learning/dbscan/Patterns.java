@@ -72,35 +72,35 @@ public class Patterns {
 
     public List<List<Integer>> createPattern2() {
         List<Integer> eckpunkte21 = new ArrayList<>();
-        eckpunkte21.add(1000);
+        eckpunkte21.add(10);
         eckpunkte21.add(5);
         eckpunkte21.add(25);
         eckpunkte21.add(10);
         eckpunkte21.add(30);
 
         List<Integer> eckpunkte22 = new ArrayList<>();
-        eckpunkte22.add(1000);
+        eckpunkte22.add(10);
         eckpunkte22.add(35);
         eckpunkte22.add(55);
         eckpunkte22.add(10);
         eckpunkte22.add(30);
 
         List<Integer> eckpunkte23 = new ArrayList<>();
-        eckpunkte23.add(1000);
+        eckpunkte23.add(10);
         eckpunkte23.add(5);
         eckpunkte23.add(25);
         eckpunkte23.add(40);
         eckpunkte23.add(60);
 
         List<Integer> eckpunkte24 = new ArrayList<>();
-        eckpunkte24.add(1000);
+        eckpunkte24.add(10);
         eckpunkte24.add(35);
         eckpunkte24.add(55);
         eckpunkte24.add(40);
         eckpunkte24.add(60);
 
         List<Integer> rauschpunkte2 = new ArrayList<>();
-        rauschpunkte2.add(0);
+        rauschpunkte2.add(10);
         rauschpunkte2.add(0);
         rauschpunkte2.add(70);
         rauschpunkte2.add(0);

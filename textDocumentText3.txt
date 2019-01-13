@@ -1,0 +1,4 @@
+Dies ist Text drei über Text.
+Ein Text kann sehr kurz sein.
+Ein Text kann aber auch sehr lang sein.
+Ob ein Text lang oder kurz ist hängt von der Anzahl der verwendeten Buchstaben ab.
