@@ -1,9 +1,7 @@
 package nlp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * TF-IDF: Term frequency - Inversion document frequency class that computes a term-weighting vector of a given corpus
@@ -27,17 +25,17 @@ public class TFIDF {
         Map<Integer, List<Double>> vectorOfWeights= new HashMap<>();
 
         int counter = 1;
+        List<String> terms = computeTerms(corpus);
         for (Map.Entry<Integer, List<String>> document : corpus.entrySet()) {
             System.out.println("\n\nComputing TFIDF for document " + counter);
             counter ++;
-            List<String> terms = document.getValue();
             if (terms.size() == 0) {
                 System.out.println("Document " + document.getKey() + " does not have any terms");
                 continue;
             }
             List<Double> weights = new ArrayList<>();
             for (String term : terms) {
-                double termFrequency = termFrequency(term, terms);
+                double termFrequency = termFrequency(term, document.getValue());
                 double inverseDocumentFrequency = inverseDocumentFrequency(term, corpus);
                 double frequency = termFrequency * inverseDocumentFrequency;
                 System.out.println(term + " >W> " + frequency);
@@ -49,11 +47,23 @@ public class TFIDF {
         return vectorOfWeights;
     }
 
+    private List<String> computeTerms(Map<Integer, List<String>> corpus) {
+        Set<String> uniqueTerms = new LinkedHashSet<>();
+        for (Map.Entry<Integer, List<String>> document : corpus.entrySet()) {
+            for (String term : document.getValue()) {
+                uniqueTerms.add(term);
+            }
+        }
+
+        return uniqueTerms.stream().collect(Collectors.toList());
+    }
+
     private double termFrequency(String term, List<String> terms) {
         double termCount = terms.stream().filter(t -> term.equalsIgnoreCase(t)).count();
         double maxTerms = terms.size();
 
-        return termCount / maxTerms;
+        double frequency = termCount / maxTerms;
+        return frequency;
     }
 
     private double inverseDocumentFrequency(String term, Map<Integer, List<String>> corpus) {
@@ -63,6 +73,7 @@ public class TFIDF {
             termAppearanceCount = 1;
         }
 
-        return Math.log10(numberOfDocuments / termAppearanceCount);
+        double frequency = Math.log10(numberOfDocuments / termAppearanceCount);
+        return frequency;
     }
 }
